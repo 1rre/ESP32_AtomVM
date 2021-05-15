@@ -12,7 +12,8 @@ cd esp-idf
 source export.sh
 
 == Setting up AtomVM
-*Depends:* ESP-IDF and those on https://github.com/bettio/AtomVM[AtomVM] github
+*Depends:* ESP-IDF and those on https://github.com/bettio/AtomVM[AtomVM] github +
+<...> should be replaced with the files/ports relevant to you.
 [source,bash]
 git clone https://github.com/bettio/AtomVM
 cd AtomVM
@@ -20,12 +21,18 @@ cmake .
 cd src/platforms/esp32
 make flash
 
+If `make flash` returns an error for you *which it will on WSL*:
+[source,bash]
+make build
+python <PATH_TO_ESP-IDF>/components/esptool_py/esptool/esptool.py --chip esp32 --port <PORT> --baud 115200 --before default_reset --after hard_reset write_flash -z --flash_mode dio --flash_freq 40m --flash_size detect 0x1000 <PATH_TO_ATOM_VM>/src/platforms/esp32/build/bootloader/bootloader.bin 0x10000 <PATH_TO_ATOM_VM>/src/platforms/esp32/build/atomvvm-esp32.bin 0x8000 <PATH_TO_ATOM_VM>/src/platforms/esp32/build/partitions.bin
+
 == Flashing a file
-The AtomVM readme states files should be stripped, however I found that this led to errors.
+The AtomVM readme states files should be stripped, however I found that this led to errors. +
+<...> should be replaced with the files/ports relevant to you.
 [source,bash]
 erlc <erlang_files>
 elixirc <elixir_files>
-<PATH_TO_ATOMVM>/tools/packbeam/PackBEAM <dest>.avm <module_1>.beam <module_2>.beam ...
+<PATH_TO_ATOM_VM>/tools/packbeam/PackBEAM <dest>.avm <module_1>.beam <module_2>.beam ...
 <PATH_TO_ESP-IDF>/components/esptool_py/esptool/esptool.py --chip esp32 --port <PORT> --baud 115200 --before default_reset --after hard_reset write_flash -u --flash_mode dio --flash_freq 40m --flash_size detect  0x210000 <dest>.avm
 
 You can then open the serial monitor in arduino (or using the ESP-IDF tool if you prefer) & monitor the output
