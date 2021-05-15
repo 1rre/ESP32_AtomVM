@@ -6,7 +6,7 @@
 
 init(GPIO) ->
   [gpio:set_direction(GPIO, N, output) || N <- ?VISION_PINS],
-  erlang:display("Hello World from Vision"),
+  io:format("Hello World from Vision~n"),
   loop(GPIO, 1, on).  
   
 loop(GPIO, N, on) ->

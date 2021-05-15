@@ -5,7 +5,7 @@
 
 init(GPIO) ->
   [gpio:set_direction(GPIO, Pin, output) || Pin <- ?DRIVE_PINS],
-  erlang:display("Hello World from Drive"),
+  io:format("Hello World from Drive~n"),
   loop(GPIO, 1, on).
 
 loop(GPIO, N, on) ->

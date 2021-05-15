@@ -16,18 +16,19 @@ init(_GPIO) ->
     ok ->
       wait_for_message();
     Error ->
-      erlang:display(Error)
+      io:format("Error: ~p~n", [Error])
   end.
 
 wait_for_message() ->
   receive
     connected ->
-      erlang:display(connected);
+      io:format("Connected~n"),
+      wait_for_message();
     {ok, IpInfo} ->
-      erlang:display(IpInfo);
+      io:format("IP: ~p~n", [IpInfo]),
+      wait_for_message();
     disconnected ->
-      erlang:display(disconnected)
+      io:format("Disconnected~n")
   after 15000 ->
     ok
-  end,
-  wait_for_message().
+  end.
