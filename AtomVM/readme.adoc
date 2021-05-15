@@ -1,0 +1,31 @@
+= Building AtomVM
+
+This method works on Ubuntu 20.04, but not Void Linux so YMMV for different distros.
+
+
+== Setting up ESP-IDF
+*Depends:* See https://github.com/bettio/AtomVM[ESP-IDF] github
+[source,bash]
+git clone https://github.com/espressif/esp-idf
+cd esp-idf
+./install.sh
+source export.sh
+
+== Setting up AtomVM
+*Depends:* ESP-IDF and those on https://github.com/bettio/AtomVM[AtomVM] github
+[source,bash]
+git clone https://github.com/bettio/AtomVM
+cd AtomVM
+cmake .
+cd src/platforms/esp32
+make flash
+
+== Flashing a file
+The AtomVM readme states files should be stripped, however I found that this led to errors.
+[source,bash]
+erlc <erlang_files>
+elixirc <elixir_files>
+<PATH_TO_ATOMVM>/tools/packbeam/PackBEAM <dest>.avm <module_1>.beam <module_2>.beam ...
+<PATH_TO_ESP-IDF>/components/esptool_py/esptool/esptool.py --chip esp32 --port <PORT> --baud 115200 --before default_reset --after hard_reset write_flash -u --flash_mode dio --flash_freq 40m --flash_size detect  0x210000 <dest>.avm
+
+You can then open the serial monitor in arduino (or using the ESP-IDF tool if you prefer) & monitor the output
