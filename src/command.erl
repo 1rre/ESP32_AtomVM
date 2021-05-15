@@ -5,8 +5,8 @@ init(_GPIO) ->
   Self = self(),
   Config = [
     {sta, [
-      {ssid, esp:nvs_get_binary(atomvm, sta_ssid, ?WIFI_SSID)},
-      {psk,  esp:nvs_get_binary(atomvm, sta_psk, )},
+      {ssid, esp:nvs_get_binary(atomvm, sta_ssid, <<"WIFI_SSID">>)},
+      {psk,  esp:nvs_get_binary(atomvm, sta_psk, <<"WIFI_PASSWORD">>)},
       {connected, fun() -> Self ! connected end},
       {got_ip, fun(IpInfo) -> Self ! {ok, IpInfo} end},
       {disconnected, fun() -> Self ! disconnected end}
