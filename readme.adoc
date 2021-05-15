@@ -27,7 +27,7 @@ make build
 python <PATH_TO_ESP-IDF>/components/esptool_py/esptool/esptool.py --chip esp32 --port <PORT> --baud 115200 --before default_reset --after hard_reset write_flash -z --flash_mode dio --flash_freq 40m --flash_size detect 0x1000 <PATH_TO_ATOM_VM>/src/platforms/esp32/build/bootloader/bootloader.bin 0x10000 <PATH_TO_ATOM_VM>/src/platforms/esp32/build/atomvvm-esp32.bin 0x8000 <PATH_TO_ATOM_VM>/src/platforms/esp32/build/partitions.bin
 
 == Flashing a file
-The AtomVM readme states files should be stripped, however I found that this led to errors. +
+The AtomVM readme states .beam files should be stripped, however I found that this led to errors & they ran fine without any processing beyond the following. +
 <...> should be replaced with the files/ports relevant to you.
 [source,bash]
 erlc <erlang_files>
